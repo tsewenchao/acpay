@@ -1,0 +1,16 @@
+{
+  "name": "tsewenchao/acpay",
+  "description": "PHP SDK for ACPay payment gateway integration",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "tsewenchao",
+      "email": "tsewenchao@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Acpay\\": "src/"
+    }
+  }
+}
