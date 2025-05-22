@@ -10,7 +10,13 @@
   ],
   "autoload": {
     "psr-4": {
-      "Acpay\\": "src/"
+      "Tsewenchao\\Acpay\\": "src/"
     }
-  }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/tsewenchao/acpay"
+    }
+  ]
 }
