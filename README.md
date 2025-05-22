@@ -11,7 +11,7 @@ composer require tsewenchao/acpay
 ## 使用示例
 
 ```php
-use Tsewenchao\Acpay\Acpay;
+use Acpay\Acpay;
 
 $config = [
     'merchant_no'   => '你的商户号',
@@ -34,14 +34,14 @@ echo "跳转支付链接: $payUrl";
 
 ## 方法说明
 
-| 方法            | 参数说明                              | 说明                         |
-|-----------------|---------------------------------------|------------------------------|
-| `createOrder`   | 订单编号、金额、商品描述               | 创建订单并获取跳转链接       |
-| `queryOrder`    | ACpay 交易号                          | 查询订单状态                 |
-| `cancelOrder`   | 商户订单号                            | 取消订单                     |
-| `captureOrder`  | 交易号、订单号、金额                  | 请款操作                     |
-| `refundOrder`   | 交易号、订单号、退款单号、金额、原总金额 | 发起退款                     |
-| `handleNotify`  | 原始 XML 内容                         | 处理异步通知并验签           |
+| 方法            | 参数说明                                  | 说明                         |
+|-----------------|-------------------------------------------|------------------------------|
+| `createOrder`   | 订单编号、金额、商品描述                   | 创建订单并获取跳转链接       |
+| `queryOrder`    | ACpay 交易号                              | 查询订单状态                 |
+| `cancelOrder`   | 商户订单号                                | 取消订单                     |
+| `captureOrder`  | 交易号、订单号、金额                      | 请款操作                     |
+| `refundOrder`   | 交易号、订单号、退款单号、金额、原总金额   | 发起退款                     |
+| `handleNotify`  | 原始 XML 内容                             | 处理异步通知并验签           |
 
 ## 返回格式
 
