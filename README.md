@@ -5,7 +5,7 @@
 ## 安装
 
 ```bash
-composer require tsewenchao/acpay
+composer require tsewen/acpay
 ```
 
 ## 使用示例
