@@ -1,22 +1,22 @@
 {
   "name": "tsewenchao/acpay",
   "description": "PHP SDK for ACPay payment gateway integration",
+  "type": "library",
   "license": "MIT",
   "authors": [
     {
       "name": "tsewenchao",
-      "email": "tsewenchao@gmail.com"
+      "email": "tsewenchao@gmail.com",
+      "role": "Developer"
     }
   ],
+  "require": {
+    "php": ">=7.4",
+    "ext-simplexml": "*"
+  },
   "autoload": {
     "psr-4": {
-      "Tsewenchao\\Acpay\\": "src/"
+      "Acpay\\": "src/"
     }
-  },
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/tsewenchao/acpay"
-    }
-  ]
+  }
 }
