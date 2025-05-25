@@ -1,10 +1,15 @@
 <?php
 namespace Acpay\Helper;
 
+/**
+ * XML工具类
+ */
 class Xml
 {
-    // 数组转xml
-    public static function build($data)
+    /**
+     * 数组转XML
+     */
+    public static function build(array $data): string
     {
         $xml = '<xml>';
         foreach ($data as $k => $v) {
@@ -14,11 +19,14 @@ class Xml
         return $xml;
     }
 
-    // xml转数组
-    public static function parse($xml)
+    /**
+     * XML转数组
+     */
+    public static function parse(string $xml): array
     {
         if (!$xml) return [];
+        libxml_disable_entity_loader(true);
         $res = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA);
-        return json_decode(json_encode($res), true) ?: [];
+        return $res ? json_decode(json_encode($res), true) : [];
     }
 }
