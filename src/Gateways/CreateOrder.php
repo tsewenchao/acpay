@@ -1,4 +1,5 @@
 <?php
+
 namespace Acpay\Gateways;
 
 use Acpay\Connector\Gateway;
@@ -11,9 +12,9 @@ class CreateOrder extends Gateway
 {
     public function handle(array $params): array
     {
-        if (empty($this->config['merchant_no'])) throw new AcpayException('缺少 merchant_no');
-        $url = $this->config['api_url'] ?? $this->config['api_url1'] ?? null;
-        if (empty($url)) throw new AcpayException('缺少 api_url 或 api_url1');
+        if (empty($this->config['merchant_no'])) {
+            throw new AcpayException('缺少 merchant_no');
+        }
 
         $data = array_merge([
             'service'     => 'vmj',
@@ -30,6 +31,7 @@ class CreateOrder extends Gateway
             if (empty($data[$field])) throw new AcpayException("缺少参数: $field");
         }
 
-        return $this->post($url, $data);
+        // 直接写在这里即可
+        return $this->post($this->getApiRoot(), $data);
     }
 }

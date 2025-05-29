@@ -1,19 +1,22 @@
 <?php
+
 namespace Acpay\Gateways;
 
 use Acpay\Connector\Gateway;
 use Acpay\Exception\AcpayException;
 
 /**
- * 取消订单
+ * 取消订单（信用卡取消交易）
  */
 class CancelOrder extends Gateway
 {
     public function handle(array $params): array
     {
-        if (empty($this->config['merchant_no'])) throw new AcpayException('缺少 merchant_no');
-        $url = $this->config['api_url2'] ?? null;
-        if (empty($url)) throw new AcpayException('缺少 api_url2');
+        if (empty($this->config['merchant_no'])) {
+            throw new AcpayException('缺少 merchant_no');
+        }
+
+        $url = $this->getApiRoot2() . '/Refund';
 
         $data = array_merge([
             'service'     => 'unified.micropay.reverse',
@@ -26,9 +29,11 @@ class CancelOrder extends Gateway
 
         $required = ['out_trade_no'];
         foreach ($required as $field) {
-            if (empty($data[$field])) throw new AcpayException("缺少参数: $field");
+            if (empty($data[$field])) {
+                throw new AcpayException("缺少参数: $field");
+            }
         }
-
-        return $this->post($url . '/Refund', $data);
+        
+        return $this->post($url, $data);
     }
 }

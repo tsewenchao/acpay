@@ -1,4 +1,5 @@
 <?php
+
 namespace Acpay\Connector;
 
 use Acpay\Helper\Sign;
@@ -18,6 +19,18 @@ abstract class Gateway implements GatewayInterface
     public function __construct(array $config)
     {
         $this->config = $config;
+    }
+
+    // 下单等接口（API_ROOT）
+    protected function getApiRoot(): string
+    {
+        return !empty($this->config['sandbox']) ? 'https://aiodir.payloop.com.tw' : 'https://aiodir.acpay.com.tw';
+    }
+
+    // 查询、退款等接口（API_ROOT2）
+    protected function getApiRoot2(): string
+    {
+        return !empty($this->config['sandbox']) ? 'https://aio.payloop.com.tw' : 'https://aio.acpay.com.tw';
     }
 
     /**

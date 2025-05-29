@@ -1,4 +1,5 @@
 <?php
+
 namespace Acpay\Gateways;
 
 use Acpay\Connector\Gateway;
@@ -11,9 +12,11 @@ class RefundOrder extends Gateway
 {
     public function handle(array $params): array
     {
-        if (empty($this->config['merchant_no'])) throw new AcpayException('缺少 merchant_no');
-        $url = $this->config['api_url2'] ?? null;
-        if (empty($url)) throw new AcpayException('缺少 api_url2');
+        if (empty($this->config['merchant_no'])) {
+            throw new AcpayException('缺少 merchant_no');
+        }
+        
+        $url = $this->getApiRoot2() . '/Refund';
 
         $data = array_merge([
             'service'     => 'unified.trade.refund',
@@ -24,11 +27,14 @@ class RefundOrder extends Gateway
             'nonce_str'   => md5(uniqid((string)mt_rand(), true)),
         ], $params);
 
-        $required = ['out_trade_no', 'refund_fee'];
+        // 必填参数校验
+        $required = ['transaction_id', 'out_refund_no', 'refund_fee', 'total_fee'];
         foreach ($required as $field) {
-            if (empty($data[$field])) throw new AcpayException("缺少参数: $field");
+            if (empty($data[$field])) {
+                throw new AcpayException("缺少参数: $field");
+            }
         }
 
-        return $this->post($url . '/Refund', $data);
+        return $this->post($url, $data);
     }
 }

@@ -11,9 +11,11 @@ class QueryOrder extends Gateway
 {
     public function handle(array $params): array
     {
-        if (empty($this->config['merchant_no'])) throw new AcpayException('缺少 merchant_no');
-        $url = $this->config['api_url'] ?? null;
-        if (empty($url)) throw new AcpayException('缺少 api_url');
+        if (empty($this->config['merchant_no'])) {
+            throw new AcpayException('缺少 merchant_no');
+        }
+
+        $url = $this->getApiRoot2() . '/Query';
 
         $data = array_merge([
             'service'     => 'unified.trade.query',
@@ -24,11 +26,11 @@ class QueryOrder extends Gateway
             'nonce_str'   => md5(uniqid((string)mt_rand(), true)),
         ], $params);
 
-        // out_trade_no 或 transaction_id 至少一个
+        // out_trade_no 或 transaction_id 至少一项必填
         if (empty($data['out_trade_no']) && empty($data['transaction_id'])) {
             throw new AcpayException('缺少参数: out_trade_no 或 transaction_id 必须至少一个');
         }
 
-        return $this->post($url . '/Query', $data);
+        return $this->post($url, $data);
     }
 }
